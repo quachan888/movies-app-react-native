@@ -16,7 +16,7 @@ class Card extends Component {
             <TouchableOpacity
                 style={styles.container}
                 onPress={() =>
-                    navigation.navigate('Detail', {movieDetail: item})
+                    navigation.navigate('Detail', {movieId: item.id})
                 }>
                 <Image
                     style={styles.image}
