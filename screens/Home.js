@@ -20,7 +20,7 @@ import Error from '../components/Error';
 
 const dimensions = Dimensions.get('screen');
 
-const Home = () => {
+const Home = ({navigation}) => {
     const [movieImages, setMovieImages] = useState();
     const [popularMovies, setPopularMovies] = useState();
     const [popularTv, setPopularTv] = useState();
@@ -91,6 +91,7 @@ const Home = () => {
                             <List
                                 title="Popular Movies"
                                 content={popularMovies}
+                                navigation={navigation}
                             />
                         </View>
                     )}
@@ -99,6 +100,7 @@ const Home = () => {
                             <List
                                 title="Popular TV Shows"
                                 content={popularTv}
+                                navigation={navigation}
                             />
                         </View>
                     )}
@@ -107,6 +109,7 @@ const Home = () => {
                             <List
                                 title="Top Rated Movies"
                                 content={topRatedMovies}
+                                navigation={navigation}
                             />
                         </View>
                     )}
@@ -115,6 +118,7 @@ const Home = () => {
                             <List
                                 title="Family Movies"
                                 content={familyMovies}
+                                navigation={navigation}
                             />
                         </View>
                     )}
