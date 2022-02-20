@@ -1,13 +1,6 @@
 import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-
-const getPopularMovies = async () => {
-  const response = await axios.get(
-    'https://api.themoviedb.org/3/movie/popular?api_key=4a364319375ed2702b522fc312cf8834a',
-  );
-  return response.data.results;
-};
+import {getPopularMovies} from './services/services';
 
 const App = () => {
   const [movie, setMovie] = useState('');
@@ -16,10 +9,11 @@ const App = () => {
   useEffect(() => {
     getPopularMovies()
       .then(movies => {
-        setMovie(movies[0]);
+        setMovie(movies[3]);
       })
       .catch(err => {
-        setError(err);
+        console.log(err);
+        setError(true);
       });
   }, []);
 
@@ -35,5 +29,3 @@ const App = () => {
 };
 
 export default App;
-
-const styles = StyleSheet.create({});
