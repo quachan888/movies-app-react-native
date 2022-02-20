@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     Image,
@@ -9,13 +9,14 @@ import {
     Dimensions,
 } from 'react-native';
 import dateFormat from 'dateformat';
-import {getMovieDetail} from '../services/services';
+import { getMovieDetail } from '../services/services';
 import StarRating from 'react-native-star-rating';
+import PlayButton from '../components/PlayButton';
 
 const placeholderImage = require('../assets/images/placeholder.png');
 const dimensions = Dimensions.get('screen');
 
-const Detail = ({route, navigation}) => {
+const Detail = ({ route, navigation }) => {
     const movieId = route.params.movieId;
 
     const [movieDetail, setMovieDetail] = useState('');
@@ -31,51 +32,60 @@ const Detail = ({route, navigation}) => {
     return (
         <>
             {loaded ? (
-                <ScrollView>
-                    <Image
-                        resizeMode="cover"
-                        style={styles.image}
-                        source={
-                            movieDetail.poster_path
-                                ? {
-                                      uri:
-                                          'https://image.tmdb.org/t/p/original' +
-                                          movieDetail.poster_path,
-                                  }
-                                : placeholderImage
-                        }
-                    />
-
-                    <View style={styles.container}>
-                        <Text style={styles.title}>{movieDetail.title}</Text>
-                        {movieDetail.genres && (
-                            <View style={styles.genresContainer}>
-                                {movieDetail.genres.map(genre => (
-                                    <Text style={styles.genre} key={genre.id}>
-                                        {genre.name}
-                                    </Text>
-                                ))}
-                            </View>
-                        )}
-                        <StarRating
-                            maxStars={5}
-                            disabled={true}
-                            fullStarColor={'gold'}
-                            rating={movieDetail.vote_average / 2}
-                            starSize={24}
+                <View>
+                    <ScrollView>
+                        <Image
+                            resizeMode="cover"
+                            style={styles.image}
+                            source={
+                                movieDetail.poster_path
+                                    ? {
+                                          uri:
+                                              'https://image.tmdb.org/t/p/original' +
+                                              movieDetail.poster_path,
+                                      }
+                                    : placeholderImage
+                            }
                         />
-                        <Text style={styles.overview}>
-                            {movieDetail.overview}
-                        </Text>
-                        <Text style={styles.release}>
-                            {'Release date: ' +
-                                dateFormat(
-                                    movieDetail.release_date,
-                                    'mmmm dd, yyyy',
-                                )}
-                        </Text>
-                    </View>
-                </ScrollView>
+
+                        <View style={styles.container}>
+                            <View style={styles.playButton}>
+                                <PlayButton />
+                            </View>
+                            <Text style={styles.title}>
+                                {movieDetail.title}
+                            </Text>
+                            {movieDetail.genres && (
+                                <View style={styles.genresContainer}>
+                                    {movieDetail.genres.map(genre => (
+                                        <Text
+                                            style={styles.genre}
+                                            key={genre.id}>
+                                            {genre.name}
+                                        </Text>
+                                    ))}
+                                </View>
+                            )}
+                            <StarRating
+                                maxStars={5}
+                                disabled={true}
+                                fullStarColor={'gold'}
+                                rating={movieDetail.vote_average / 2}
+                                starSize={24}
+                            />
+                            <Text style={styles.overview}>
+                                {movieDetail.overview}
+                            </Text>
+                            <Text style={styles.release}>
+                                {'Release date: ' +
+                                    dateFormat(
+                                        movieDetail.release_date,
+                                        'mmmm dd, yyyy',
+                                    )}
+                            </Text>
+                        </View>
+                    </ScrollView>
+                </View>
             ) : (
                 <ActivityIndicator size="large" />
             )}
@@ -97,6 +107,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginHorizontal: 10,
+        position: 'relative',
     },
     genre: {
         fontSize: 12,
@@ -114,6 +125,11 @@ const styles = StyleSheet.create({
     },
     release: {
         fontWeight: 'bold',
+    },
+    playButton: {
+        position: 'absolute',
+        top: -25,
+        right: 5,
     },
 });
 
