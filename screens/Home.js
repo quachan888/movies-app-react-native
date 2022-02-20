@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    ScrollView,
+    ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
     getFamilyMovies,
@@ -20,6 +27,7 @@ const Home = () => {
     const [familyMovies, setFamilyMovies] = useState();
 
     const [error, setError] = useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     // Refactoring multiple axios get
     const getData = () => {
@@ -55,49 +63,64 @@ const Home = () => {
                     setFamilyMovies(familyMoviesData);
                 },
             )
-            .catch(err => setError(err.message));
+            .catch(err => setError(err.message))
+            .finally(() => setLoaded(true));
     }, []);
 
     return (
         <>
-            <ScrollView>
-                {/* Upcoming Movies Slider */}
-                {movieImages && (
-                    <View style={styles.sliderContainer}>
-                        <SliderBox
-                            images={movieImages}
-                            sliderBoxHeight={dimensions.height / 1.5}
-                            autoplay={true}
-                            circleLoop={true}
-                            activeOpacity={0.5}
-                            dotStyle={styles.sliderStyle}
-                        />
-                    </View>
-                )}
-                {popularMovies && (
-                    <View style={styles.carousel}>
-                        <List title="Popular Movies" content={popularMovies} />
-                    </View>
-                )}
-                {popularTv && (
-                    <View style={styles.carousel}>
-                        <List title="Popular TV Shows" content={popularTv} />
-                    </View>
-                )}
-                {topRatedMovies && (
-                    <View style={styles.carousel}>
-                        <List
-                            title="Top Rated Movies"
-                            content={topRatedMovies}
-                        />
-                    </View>
-                )}
-                {familyMovies && (
-                    <View style={styles.carousel}>
-                        <List title="Family Movies" content={familyMovies} />
-                    </View>
-                )}
-            </ScrollView>
+            {loaded ? (
+                <ScrollView>
+                    {/* Upcoming Movies Slider */}
+                    {movieImages && (
+                        <View style={styles.sliderContainer}>
+                            <SliderBox
+                                images={movieImages}
+                                sliderBoxHeight={dimensions.height / 1.5}
+                                autoplay={true}
+                                circleLoop={true}
+                                activeOpacity={0.5}
+                                dotStyle={styles.sliderStyle}
+                            />
+                        </View>
+                    )}
+
+                    {popularMovies && (
+                        <View style={styles.carousel}>
+                            <List
+                                title="Popular Movies"
+                                content={popularMovies}
+                            />
+                        </View>
+                    )}
+                    {popularTv && (
+                        <View style={styles.carousel}>
+                            <List
+                                title="Popular TV Shows"
+                                content={popularTv}
+                            />
+                        </View>
+                    )}
+                    {topRatedMovies && (
+                        <View style={styles.carousel}>
+                            <List
+                                title="Top Rated Movies"
+                                content={topRatedMovies}
+                            />
+                        </View>
+                    )}
+                    {familyMovies && (
+                        <View style={styles.carousel}>
+                            <List
+                                title="Family Movies"
+                                content={familyMovies}
+                            />
+                        </View>
+                    )}
+                </ScrollView>
+            ) : (
+                <ActivityIndicator size="large" />
+            )}
         </>
     );
 };
