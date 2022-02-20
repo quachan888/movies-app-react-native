@@ -51,7 +51,7 @@ const Home = () => {
         />
       </View>
       <View>
-        <List title="Hello TITLE" content={popularMovies} />
+        <List title="Popular Movies" content={popularMovies} />
       </View>
     </>
   );
