@@ -1,6 +1,12 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React, {PureComponent} from 'react';
 import Card from './Card';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+  title: PropTypes.object,
+  content: PropTypes.array,
+};
 
 class List extends PureComponent {
   render() {
@@ -32,5 +38,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+List.propTypes = propTypes;
 
 export default List;

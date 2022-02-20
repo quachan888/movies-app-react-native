@@ -1,14 +1,18 @@
-import {Text, StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 const placeholderImage = require('../assets/images/placeholder.png');
 
-export default class Card extends Component {
+const propTypes = {
+  item: PropTypes.object,
+};
+
+class Card extends Component {
   render() {
     const {item} = this.props;
     return (
       <TouchableOpacity style={styles.container}>
-        {/* <Text>{item.poster_path}</Text> */}
         <Image
           style={styles.image}
           source={
@@ -45,3 +49,7 @@ const styles = StyleSheet.create({
     top: 10,
   },
 });
+
+Card.propTypes = propTypes;
+
+export default Card;

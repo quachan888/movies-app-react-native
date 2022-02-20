@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Dimensions, FlatList} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {getPopularMovies, getUpcommingMovies} from '../services/services';
 import {SliderBox} from 'react-native-image-slider-box';
@@ -39,26 +39,28 @@ const Home = () => {
 
   return (
     <>
-      {/* <View style={styles.sliderContainer}> */}
-      <View>
-        <SliderBox
-          images={movieImages}
-          sliderBoxHeight={dimentions.height / 1.5}
-          autoplay={true}
-          circleLoop={true}
-          activeOpacity={0.5}
-          dotStyle={styles.sliderStyle}
-        />
-      </View>
-      <View>
-        <List title="Popular Movies" content={popularMovies} />
-      </View>
+      <ScrollView>
+        <View style={styles.sliderContainer}>
+          <SliderBox
+            images={movieImages}
+            sliderBoxHeight={dimentions.height / 1.5}
+            autoplay={true}
+            circleLoop={true}
+            activeOpacity={0.5}
+            dotStyle={styles.sliderStyle}
+          />
+        </View>
+        <View>
+          <List title="Popular Movies" content={popularMovies} />
+        </View>
+      </ScrollView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   sliderContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
