@@ -16,6 +16,7 @@ import {
 } from '../services/services';
 import {SliderBox} from 'react-native-image-slider-box';
 import List from '../components/List';
+import Error from '../components/Error';
 
 const dimensions = Dimensions.get('screen');
 
@@ -63,13 +64,13 @@ const Home = () => {
                     setFamilyMovies(familyMoviesData);
                 },
             )
-            .catch(err => setError(err.message))
+            .catch(err => setError(true))
             .finally(() => setLoaded(true));
     }, []);
 
     return (
         <>
-            {loaded ? (
+            {loaded && !error ? (
                 <ScrollView>
                     {/* Upcoming Movies Slider */}
                     {movieImages && (
@@ -121,6 +122,7 @@ const Home = () => {
             ) : (
                 <ActivityIndicator size="large" />
             )}
+            {error && <Error />}
         </>
     );
 };

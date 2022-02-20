@@ -4,7 +4,7 @@ import Card from './Card';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    title: PropTypes.object,
+    title: PropTypes.string,
     content: PropTypes.array,
 };
 
