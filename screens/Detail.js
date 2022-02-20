@@ -9,6 +9,7 @@ import {
     Dimensions,
 } from 'react-native';
 import {getMovieDetail} from '../services/services';
+import StarRating from 'react-native-star-rating';
 
 const placeholderImage = require('../assets/images/placeholder.png');
 const dimensions = Dimensions.get('screen');
@@ -55,6 +56,13 @@ const Detail = ({route, navigation}) => {
                                 ))}
                             </View>
                         )}
+                        <StarRating
+                            maxStars={5}
+                            disabled={true}
+                            fullStarColor={'gold'}
+                            rating={movieDetail.vote_average / 2}
+                            starSize={24}
+                        />
                     </View>
                 </ScrollView>
             ) : (
@@ -80,13 +88,14 @@ const styles = StyleSheet.create({
     },
     genre: {
         fontSize: 14,
-        fontWeight: 200,
+        fontWeight: '200',
         marginHorizontal: 5,
         textTransform: 'uppercase',
     },
     genresContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
+        marginBottom: 14,
     },
 });
 
